@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Radio Golha",
+    "url": "mms://www.radiogolha.net/RadioGolha",
+    "favorite": true
+  },
+  {
+    "name": "Iran International",
+    "url": "https://stream.radiojar.com/iintl_c",
+    "favorite": false
+  },
+  {
+    "name": "Radio Farda",
+    "url": "https://stream.radiojar.com/cp13r2cpn3quv",
+    "favorite": false
+  },
+  {
+    "name": "Radio Navahang",
+    "url": "https://navairan.com/;stream.nsv",
+    "favorite": false
+  },
+  {
+    "name": "Radio Simorgh",
+    "url": "https://stream.zeno.fm/jl8n7thgcdftv",
+    "favorite": false
+  },
+  {
+    "name": "Radio Yar",
+    "url": "https://shoutcast.glwiz.com/RadioYAR.mp3",
+    "favorite": false
+  },
+  {
+    "name": "Radio Gachsaran",
+    "url": "https://radio.gachsaran.org/gach",
+    "favorite": false
+  },
+  {
+    "name": "Radio Sarcheshme",
+    "url": "http://sarcheshmeh.icdndhcp.com:18452/stream",
+    "favorite": false
+  }
+]

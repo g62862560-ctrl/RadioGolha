@@ -1,0 +1,17 @@
+# Build outputs
+bin/
+obj/
+dist/
+*.exe
+*.dll
+*.pdb
+
+# Generated knowledge graph
+graphify-out/
+
+# IDE / OS
+.vs/
+.vscode/
+*.user
+Thumbs.db
+.DS_Store
