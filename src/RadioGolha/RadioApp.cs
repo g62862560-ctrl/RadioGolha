@@ -122,56 +122,62 @@ internal sealed class RadioApp : Form
         StartPosition = FormStartPosition.CenterScreen;
         AutoScaleMode = AutoScaleMode.Font;
         AutoScaleDimensions = new SizeF(7F, 15F);
-        Font = SystemFonts.MessageBoxFont;
+        Font = new Font("Segoe UI", 9F);
         Icon = SystemIcons.Application;
 
         var root = new TableLayoutPanel
         {
             Dock = DockStyle.Fill,
             ColumnCount = 1,
-            RowCount = 5,
-            Padding = new Padding(12, 12, 12, 8),
+            Padding = new Padding(16),
+            BackColor = SystemColors.Control,
         };
         root.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-        for (var i = 0; i < 5; i++)
-            root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
         // --- station picker row ---
         var stationRow = new TableLayoutPanel
         {
-            Dock = DockStyle.Fill,
+            Dock = DockStyle.Top,
             AutoSize = true,
             ColumnCount = 3,
-            RowCount = 1,
-            Margin = new Padding(0, 0, 0, 8),
+            Margin = new Padding(0, 0, 0, 12),
+            Padding = new Padding(0),
         };
         stationRow.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
         stationRow.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-        stationRow.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 36F));
-        stationRow.Controls.Add(new Label
+        stationRow.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+        var stationLabel = new Label
         {
             Text = "Station:",
             AutoSize = true,
             Anchor = AnchorStyles.Left,
-            Margin = new Padding(0, 0, 8, 0),
-        }, 0, 0);
+            Margin = new Padding(0, 6, 8, 0),
+        };
+        stationRow.Controls.Add(stationLabel, 0, 0);
         _stationCombo = new ComboBox
         {
             DropDownStyle = ComboBoxStyle.DropDownList,
             Dock = DockStyle.Fill,
             MaxDropDownItems = 14,
             TabIndex = 0,
-            Margin = new Padding(0),
+            Margin = new Padding(0, 2, 8, 2),
+            Font = new Font("Segoe UI", 9F),
         };
         _stationCombo.SelectedIndexChanged += (_, _) => OnStationSelected();
         stationRow.Controls.Add(_stationCombo, 1, 0);
         _favoriteButton = new Button
         {
             Text = "☆",
-            AutoSize = false,
             Dock = DockStyle.Fill,
             TabIndex = 1,
-            Margin = new Padding(6, 0, 0, 0),
+            Margin = new Padding(0, 2, 0, 2),
+            Font = new Font("Segoe UI", 12F),
+            FlatStyle = FlatStyle.Standard,
         };
         _favoriteButton.Click += (_, _) => ToggleFavorite();
         stationRow.Controls.Add(_favoriteButton, 2, 0);
@@ -180,27 +186,29 @@ internal sealed class RadioApp : Form
         // --- stream URL row ---
         var urlRow = new TableLayoutPanel
         {
-            Dock = DockStyle.Fill,
+            Dock = DockStyle.Top,
             AutoSize = true,
             ColumnCount = 2,
-            RowCount = 1,
-            Margin = new Padding(0, 0, 0, 10),
+            Margin = new Padding(0, 0, 0, 12),
+            Padding = new Padding(0),
         };
         urlRow.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
         urlRow.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-        urlRow.Controls.Add(new Label
+        var urlLabel = new Label
         {
             Text = "Stream URL:",
             AutoSize = true,
             Anchor = AnchorStyles.Left,
-            Margin = new Padding(0, 0, 8, 0),
-        }, 0, 0);
+            Margin = new Padding(0, 6, 8, 0),
+        };
+        urlRow.Controls.Add(urlLabel, 0, 0);
         _urlBox = new TextBox
         {
             Dock = DockStyle.Fill,
             Text = LoadUrl() ?? DefaultUrl,
             TabIndex = 2,
-            Margin = new Padding(0),
+            Margin = new Padding(0, 2, 0, 2),
+            Font = new Font("Segoe UI", 9F),
         };
         _urlBox.KeyDown += (_, e) =>
         {
@@ -214,22 +222,23 @@ internal sealed class RadioApp : Form
         // --- volume row ---
         var volumeRow = new TableLayoutPanel
         {
-            Dock = DockStyle.Fill,
+            Dock = DockStyle.Top,
             AutoSize = true,
             ColumnCount = 3,
-            RowCount = 1,
-            Margin = new Padding(0, 0, 0, 8),
+            Margin = new Padding(0, 0, 0, 12),
+            Padding = new Padding(0),
         };
         volumeRow.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
         volumeRow.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
         volumeRow.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 45F));
-        volumeRow.Controls.Add(new Label
+        var volumeLabel = new Label
         {
             Text = "Volume:",
             AutoSize = true,
             Anchor = AnchorStyles.Left,
-            Margin = new Padding(0, 0, 8, 0),
-        }, 0, 0);
+            Margin = new Padding(0, 6, 8, 0),
+        };
+        volumeRow.Controls.Add(volumeLabel, 0, 0);
         _volume = new TrackBar
         {
             Minimum = 0,
@@ -252,62 +261,68 @@ internal sealed class RadioApp : Form
             AutoSize = false,
             Dock = DockStyle.Fill,
             TextAlign = ContentAlignment.MiddleRight,
-            Margin = new Padding(4, 0, 0, 0),
+            Margin = new Padding(4, 6, 0, 0),
+            Font = new Font("Segoe UI", 9F, FontStyle.Bold),
         };
         volumeRow.Controls.Add(_volumeValueLabel, 2, 0);
         root.Controls.Add(volumeRow, 0, 2);
 
-        // --- buttons (right aligned, stock look) ---
-        var buttonRow = new FlowLayoutPanel
+        // --- buttons row ---
+        var buttonRow = new TableLayoutPanel
         {
-            Dock = DockStyle.Fill,
+            Dock = DockStyle.Top,
             AutoSize = true,
-            FlowDirection = FlowDirection.RightToLeft,
-            WrapContents = false,
-            Margin = new Padding(0, 0, 0, 10),
+            ColumnCount = 3,
+            Margin = new Padding(0, 0, 0, 12),
+            Padding = new Padding(0),
         };
+        buttonRow.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+        buttonRow.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+        buttonRow.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.34F));
+        buttonRow.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
         _playButton = new Button
         {
             Text = "Play",
-            AutoSize = true,
-            AutoSizeMode = AutoSizeMode.GrowAndShrink,
-            MinimumSize = new Size(75, 25),
+            Dock = DockStyle.Fill,
             TabIndex = 4,
-            Margin = new Padding(6, 0, 0, 0),
+            Margin = new Padding(0, 0, 4, 0),
+            Font = new Font("Segoe UI", 9F),
         };
         _stopButton = new Button
         {
             Text = "Stop",
-            AutoSize = true,
-            AutoSizeMode = AutoSizeMode.GrowAndShrink,
-            MinimumSize = new Size(75, 25),
+            Dock = DockStyle.Fill,
             TabIndex = 5,
-            Margin = new Padding(6, 0, 0, 0),
+            Margin = new Padding(4, 0, 4, 0),
+            Font = new Font("Segoe UI", 9F),
         };
         var vlcButton = new Button
         {
             Text = "Open in VLC",
-            AutoSize = true,
-            AutoSizeMode = AutoSizeMode.GrowAndShrink,
-            MinimumSize = new Size(100, 25),
+            Dock = DockStyle.Fill,
             TabIndex = 6,
-            Margin = new Padding(6, 0, 0, 0),
+            Margin = new Padding(4, 0, 0, 0),
+            Font = new Font("Segoe UI", 9F),
         };
-        buttonRow.Controls.AddRange(new Control[] { vlcButton, _stopButton, _playButton });
+        buttonRow.Controls.Add(_playButton, 0, 0);
+        buttonRow.Controls.Add(_stopButton, 1, 0);
+        buttonRow.Controls.Add(vlcButton, 2, 0);
         _playButton.Click += (_, _) => Play();
         _stopButton.Click += (_, _) => Stop_();
         vlcButton.Click += (_, _) => OpenInVlc();
         root.Controls.Add(buttonRow, 0, 3);
 
-        // --- progress bar with the percentage / elapsed time centered inside ---
+        // --- progress bar ---
         _progress = new TextProgressBar
         {
             Minimum = 0,
             Maximum = 100,
             Value = 0,
             Style = ProgressBarStyle.Continuous,
-            Dock = DockStyle.Fill,
-            Margin = new Padding(0, 2, 0, 2),
+            Dock = DockStyle.Top,
+            Height = 22,
+            Margin = new Padding(0, 0, 0, 8),
+            Font = new Font("Segoe UI", 9F, FontStyle.Bold),
         };
         root.Controls.Add(_progress, 0, 4);
 
@@ -316,8 +331,13 @@ internal sealed class RadioApp : Form
         {
             Spring = true,
             TextAlign = ContentAlignment.MiddleLeft,
+            Font = new Font("Segoe UI", 9F),
         };
-        var statusStrip = new StatusStrip { SizingGrip = false };
+        var statusStrip = new StatusStrip
+        {
+            SizingGrip = false,
+            BackColor = SystemColors.Control,
+        };
         statusStrip.Items.Add(_statusItem);
 
         var menu = BuildMenu();
@@ -331,9 +351,9 @@ internal sealed class RadioApp : Form
         LoadSettings();
         LoadStations();
 
-        // size the window to exactly fit the menu, the rows and the status bar
-        var wanted = root.GetPreferredSize(new Size(430, 0));
-        ClientSize = new Size(430, wanted.Height + menu.Height + statusStrip.Height);
+        // size the window to fit content
+        var wanted = root.GetPreferredSize(new Size(448, 0));
+        ClientSize = new Size(448, wanted.Height + menu.Height + statusStrip.Height);
 
         // disable built-in playback if VLC/library is unavailable
         if (!_vlcOk)
