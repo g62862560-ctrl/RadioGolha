@@ -81,6 +81,27 @@ installed on that PC.
 > usual multi-file `bin` folder. Use `dotnet publish` (or the batch file) when
 > you want the standalone exe.
 
+## Android version
+
+`android/` is a native Kotlin port using **LibVLC for Android** (the same
+engine, so `mms://` still works). It has the same station list (seeded from
+`src/RadioGolha/radios.json` at build time), favorites, add / import / remove,
+volume, auto-play options, buffering % / elapsed time in the progress bar and the
+"really playing" mms detection. Playback runs in a foreground service, so it
+keeps playing with the screen off. A notification has a Stop button. "Open in VLC"
+hands the URL to VLC for Android if it is installed.
+
+Build (JDK 17 + Android SDK; `local.properties` points at the SDK):
+
+```bat
+cd android
+gradlew.bat testDebugUnitTest assembleRelease
+```
+
+The APKs end up in `android/app/build/outputs/apk/release/`, one per CPU type.
+Most phones need `app-arm64-v8a-release.apk` (about 45 MB). Release builds are
+signed with the debug key, so you can sideload them but not publish them to a store.
+
 ## Project layout
 
 | File | Purpose | Python equivalent |

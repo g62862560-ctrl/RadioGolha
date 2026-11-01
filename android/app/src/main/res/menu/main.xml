@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_add" android:title="Add station..." />
+    <item android:id="@+id/action_import" android:title="Import stations..." />
+    <item android:id="@+id/action_remove" android:title="Remove station" />
+    <item android:id="@+id/action_vlc" android:title="Open in VLC" />
+</menu>
